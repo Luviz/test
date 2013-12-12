@@ -124,7 +124,7 @@ public class Filesystem {
 	}
 
 	public String pwd() {
-		return new String("/unknown/");
+		return new String("/");
 	}
 
 	private void dumpArray(String[] p_asArray) {
