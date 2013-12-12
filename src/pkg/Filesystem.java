@@ -1,5 +1,12 @@
 package pkg;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import javax.swing.text.html.BlockView;
 
 public class Filesystem {
@@ -10,8 +17,12 @@ public class Filesystem {
 	}
 
 	public String format() {
-		for (int i =0; i < 512 i++){
-			
+		byte[] allNull = new byte[512];
+		for (int i =0; i < 512 ;i++){
+			allNull[i] = 0;
+		}
+		for (int i =0; i < 250; i++){
+			m_BlockDevice.writeBlock(i, allNull);
 		}
 		return new String("Diskformat sucessfull");
 	}
@@ -39,11 +50,28 @@ public class Filesystem {
 
 	public String save(String p_sPath) {
 		System.out.print("Saving blockdevice to file " + p_sPath);
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p_sPath+".dat"));
+			out.writeObject(m_BlockDevice);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new String("");
 	}
 
 	public String read(String p_sPath) {
 		System.out.print("Reading file " + p_sPath + " to blockdevice");
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_sPath));
+			m_BlockDevice=(BlockDevice) in.readObject();
+			in.close();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new String("");
 	}
 
