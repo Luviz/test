@@ -143,8 +143,7 @@ public class Shell {
 					if (asCommandArray.length != 2) {
 						System.out.println("Usage: mkdir <directory name>");
 					} else {
-						System.out.println(m_Filesystem.mkdir(split(
-								asCommandArray[1], '/')));
+						System.out.println(m_Filesystem.mkdir(asCommandArray[1]));
 					}
 					break;
 

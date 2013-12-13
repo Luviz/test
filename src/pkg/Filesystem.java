@@ -11,9 +11,11 @@ import javax.swing.text.html.BlockView;
 
 public class Filesystem {
 	private BlockDevice m_BlockDevice;
+	private Tree t;
 
 	public Filesystem(BlockDevice p_BlockDevice) {
 		m_BlockDevice = p_BlockDevice;
+		t = new Tree();
 	}
 
 	public String format() {
@@ -109,10 +111,15 @@ public class Filesystem {
 		return new String("");
 	}
 
-	public String mkdir(String[] p_asPath) {
-		System.out.print("Creating directory ");
-		dumpArray(p_asPath);
-		System.out.print("");
+	public String mkdir(String p_asPath) {
+		System.out.println("Creating directory "+ p_asPath);
+		
+		if (t.mkdir(p_asPath)){
+			//System.out.println("Created! "+ p_asPath);	//debug
+			return new String (p_asPath);
+		}
+		//dumpArray(p_asPath);
+		System.out.print("Failed!");
 		return new String("");
 	}
 
@@ -124,7 +131,7 @@ public class Filesystem {
 	}
 
 	public String pwd() {
-		return new String("/");
+		return new String(t.pwd());
 	}
 
 	private void dumpArray(String[] p_asArray) {
