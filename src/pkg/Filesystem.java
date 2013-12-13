@@ -29,10 +29,11 @@ public class Filesystem {
 		return new String("Diskformat sucessfull");
 	}
 
-	public String ls(String[] p_asPath) {
+	public String ls(String p_asPath) {
 		System.out.print("Listing directory ");
-		dumpArray(p_asPath);
-		System.out.print("");
+		//dumpArray(p_asPath);
+		
+		System.out.print(t.ls());
 		return new String("");
 	}
 
@@ -123,9 +124,11 @@ public class Filesystem {
 		return new String("");
 	}
 
-	public String cd(String[] p_asPath) {
+	public String cd(String p_asPath) {
 		System.out.print("Changing directory to ");
-		dumpArray(p_asPath);
+		if (!t.cd(p_asPath)){
+			System.out.println("cd Fail!");
+		}
 		System.out.print("");
 		return new String("");
 	}

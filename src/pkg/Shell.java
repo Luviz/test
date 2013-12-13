@@ -52,13 +52,12 @@ public class Shell {
 					break;
 				case 2: // ls
 					if (asCommandArray.length == 1) {
-						System.out.println(m_Filesystem.ls(split(".", '/')));
+						System.out.println(m_Filesystem.ls(""));
 					} else {
 						if (asCommandArray.length != 2) {
 							System.out.println("Usage: ls <path>");
 						} else {
-							System.out.println(m_Filesystem.ls(split(
-									asCommandArray[1], '/')));
+							System.out.println(m_Filesystem.ls(asCommandArray[1]));
 						}
 					}
 					break;
@@ -151,8 +150,7 @@ public class Shell {
 					if (asCommandArray.length != 2) {
 						System.out.println("Usage: cd <path>");
 					} else {
-						System.out.println(m_Filesystem.cd(split(
-								asCommandArray[1], '/')));
+						System.out.println(m_Filesystem.cd(asCommandArray[1]));
 					}
 					break;
 
