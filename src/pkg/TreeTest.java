@@ -4,6 +4,7 @@ public class TreeTest {
 	public static void main(String []args) {
 		Tree t = new Tree();
 		t.mkdir("hello");
+		System.out.println(t.ls());
 		t.mkdir("test");
 		t.mkdir("home");
 		System.out.println(t.ls());
@@ -17,7 +18,7 @@ public class TreeTest {
 		t.mkdir("hTest");
 		System.out.println(t.ls());
 		System.out.println("-------------");
-		System.out.println("!\t getc: "+t.getC().getData());
+		System.out.println("!\t getc: "+t.getC().getName());
 		System.out.println(t.ls());
 		System.out.println("-------------");
 		System.out.println("!\t cd "+t.cd("hTest/"));

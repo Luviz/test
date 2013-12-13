@@ -6,7 +6,7 @@ public class Tree {
 	private Node head, c;
 	
 	public Tree(){
-		head = new Node("/", null);
+		head = new Node("/", null, 'd');
 		c = head;
 	}
 	
@@ -20,7 +20,7 @@ public class Tree {
 	 */
 	public boolean mkdir(String name, String path){
 		if (c.getChildNode(name) == null){
-			c.addChild(name);
+			c.addChild(name, 'd');
 			return true;
 		}
 		return false;
@@ -74,7 +74,7 @@ public class Tree {
 		ArrayList<String> tmp = new ArrayList<>();
 		while (w != null){
 			//System.out.println("tree pwd():> w.data: "+w.getData());	//debug
-			tmp.add(w.getData());
+			tmp.add(w.getName());
 			w = w.getParent();
 		}
 		for (int i =tmp.size()-1; i>=0;i -- ){
