@@ -29,6 +29,11 @@ public class Node {
 	public ArrayList<Node> getChild() {
 		return child;
 	}
+	
+	public void setData(String data) {
+		this.data = data;
+	}
+
 	public void setChild(ArrayList<Node> child) {
 		this.child = child;
 	}

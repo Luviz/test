@@ -26,6 +26,26 @@ public class Tree {
 		return false;
 		
 	}
+	public boolean create(String name, byte[] data){
+		if (c.getChildNode(name) == null){
+			c.addChild(name, 'f');
+			c.setData(new String (data));
+			return true;
+		}
+		return false;
+	}
+	public String cat(String name) {
+		return c.getData()+"\neof";
+	}
+	
+	public boolean rm (String name){
+		if (c.getChildNode(name) != null){
+			c.getChild().remove(c.getChildNode(name));
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean cd (String path){
 		//System.out.println("tree_cd:>Strat");	//debug
 		if (path.equals(".")){
@@ -51,9 +71,17 @@ public class Tree {
 				cd(path.substring(1));
 			}else if (!path.isEmpty()){
 				//System.out.println("tree_cd:>else -> else if");	//debug
-				String p_to = path.substring(0, path.indexOf('/'));
+				String p_to;
+				try {
+					p_to = path.substring(0, path.indexOf('/'));
+				} catch (Exception e) {
+					path += "/"; 
+					p_to = path.substring(0, path.indexOf('/'));
+					//System.out.println(p_to); //debug
+					//e.printStackTrace();
+				}
 				Node nTest = c.getChildNode(p_to);
-				if (nTest == null)
+				if (nTest == null || nTest.getType() != 'd')
 					return false;
 				c = nTest;
 				cd(path.substring(1));
@@ -66,7 +94,7 @@ public class Tree {
 		return c;
 	}
 	public String ls() {
-		return "ls...........\n"+c.toString();
+		return pwd()+"\n"+c.toString();
 	}
 	public String pwd(){
 		String ret = "";

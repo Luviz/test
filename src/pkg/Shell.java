@@ -67,7 +67,7 @@ public class Shell {
 					} else {
 						System.out.println("Enter data. Empty line to end.");
 						System.out.println(m_Filesystem.create(
-								split(asCommandArray[1], '/'), readBlock()));
+								asCommandArray[1], readBlock()));
 					}
 					break;
 
@@ -75,8 +75,7 @@ public class Shell {
 					if (asCommandArray.length != 2) {
 						System.out.println("Usage: cat <file>");
 					} else {
-						System.out.println(m_Filesystem.cat(split(
-								asCommandArray[1], '/')));
+						System.out.println(m_Filesystem.cat(asCommandArray[1]));
 					}
 					break;
 				case 5: // save
@@ -100,8 +99,7 @@ public class Shell {
 					if (asCommandArray.length != 2) {
 						System.out.println("Usage: rm <file>");
 					} else {
-						System.out.println(m_Filesystem.rm(split(
-								asCommandArray[1], '/')));
+						System.out.println(m_Filesystem.rm(asCommandArray[1]));
 					}
 					break;
 
