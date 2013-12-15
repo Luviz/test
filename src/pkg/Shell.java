@@ -276,6 +276,7 @@ public class Shell {
 		return sTemp;
 	}
 
+	@SuppressWarnings("unused")
 	private void dumpArray(String[] p_asArray) {
 		for (int nIndex = 0; nIndex < p_asArray.length; nIndex++) {
 			System.out.print(p_asArray[nIndex] + "->");

@@ -41,7 +41,7 @@ public class Node {
 		return parent;
 	}
 	public void setParent(Node parent) {
-		System.out.println("-?-");
+		//System.out.println("-?-");
 		this.parent=parent;
 	}
 	public String getName() {

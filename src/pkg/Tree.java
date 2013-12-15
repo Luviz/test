@@ -195,15 +195,15 @@ public class Tree {
 	 */
 	public boolean mv(String select , String moveTo){
 		Node selected = getNode(select);
-		System.out.println(moveTo.substring(0,moveTo.lastIndexOf('/')+1));
+//		System.out.println(moveTo.substring(0,moveTo.lastIndexOf('/')+1));			//debug
 		Node dirTo = getNode(moveTo.substring(0,moveTo.lastIndexOf('/')+1));
 //		System.out.println("mv:> "+selected.getName()+"\t"+selected.getType());		//debug
 //		System.out.println("mv:> "+dirTo.getName()+"\t"+dirTo.getType());			//debug
 		selected.setName(moveTo.substring(moveTo.lastIndexOf('/')+1));		//rename
 		dirTo.addChild(selected);
-		selected.getParent().getChild().remove(selected);
+		selected.getParent().getChild().remove(selected);	//remove the previsoverson
 		if (dirTo.getType() == 'd'){
-			System.out.println("gettyp:");
+//			System.out.println("gettyp:");											//debug
 			selected.setParent(dirTo);
 			return true;
 		}else{
@@ -215,8 +215,8 @@ public class Tree {
 		return c;
 	}
 	public String ls() {
-		System.out.println("ls");
-		return pwd()+"\n"+c.toString();
+//		System.out.println("ls");					//debug
+		return pwd()+"-----------\n"+c.toString();
 		
 	}
 	public String pwd(){
