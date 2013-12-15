@@ -1,8 +1,10 @@
 package pkg;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tree {
+public class Tree implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Node head, c, walker;
 	
 	public Tree(){
@@ -216,7 +218,7 @@ public class Tree {
 	}
 	public String ls() {
 //		System.out.println("ls");					//debug
-		return pwd()+"-----------\n"+c.toString();
+		return "-----------\n"+pwd()+"\n"+c.toString();
 		
 	}
 	public String pwd(){
