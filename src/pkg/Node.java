@@ -41,7 +41,8 @@ public class Node {
 		return parent;
 	}
 	public void setParent(Node parent) {
-		this.parent = parent;
+		System.out.println("-?-");
+		this.parent=parent;
 	}
 	public String getName() {
 		return name;
@@ -80,6 +81,15 @@ public class Node {
 	public boolean addChild(String name, char type){
 		if (getChildNode(name)== null){
 			child.add(new Node(name, this, type));
+			//System.out.println("Node_addChild:> Size: "+child.size()+" name: "+name);	//debug;
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public boolean addChild(Node newChild){
+		if (getChildNode(name)== null){
+			child.add(newChild);
 			//System.out.println("Node_addChild:> Size: "+child.size()+" name: "+name);	//debug;
 			return true;
 		}else{

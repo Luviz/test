@@ -130,9 +130,7 @@ public class Shell {
 						System.out
 								.println("Usage: rename <old file> <new file>");
 					} else {
-						System.out.println(m_Filesystem.rename(
-								split(asCommandArray[1], '/'),
-								split(asCommandArray[2], '/')));
+						System.out.println(m_Filesystem.rename(asCommandArray[1],asCommandArray[2]));
 					}
 					break;
 

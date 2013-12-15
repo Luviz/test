@@ -104,12 +104,11 @@ public class Filesystem {
 		return new String("");
 	}
 	//[]
-	public String rename(String[] p_asSource, String[] p_asDestination) {
-		System.out.print("Renaming file ");
-		dumpArray(p_asSource);
-		System.out.print(" to ");
-		dumpArray(p_asDestination);
-		System.out.print("");
+	// rename -> move
+	public String rename(String p_asSource, String p_asDestination) {
+		System.out.println("Renaming file ");
+		t.mv(p_asSource, p_asDestination);
+
 		return new String("");
 	}
 	//[x]
