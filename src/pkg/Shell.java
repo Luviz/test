@@ -166,6 +166,7 @@ public class Shell {
 					System.out.println("Unknown command " + asCommandArray[0]);
 				}
 			}
+			sCommand = readLine();
 		}
 	}
 
