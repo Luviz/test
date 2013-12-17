@@ -15,6 +15,25 @@ public class Filesystem {
 		t = new Tree();
 	}
 	
+	public byte[][] ArrayToMatrix(byte [] array){
+		byte [][] ret = new byte [250][512];
+		int row=1;
+		int slot=0;
+		if(!(array.length>512*250)){
+			for(int i=0;i<array.length;i++){
+				if(i%512 == 0 && i !=0){
+					row++;
+					slot=0;
+				}
+				slot++;
+				ret [row][slot-1] = array[i];
+			}
+			return ret;
+		}else{
+			return ret;
+		}
+	}
+	
 	//[x]
 	public String format() {
 		byte[] allNull = new byte[512];
