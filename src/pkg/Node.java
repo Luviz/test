@@ -33,7 +33,7 @@ public class Node implements Serializable{
 		//System.out.println(this.name+this.type+this.parent);//debug
 	}
 	public Node (Node n){
-		child = new ArrayList<>(this.child);
+		this.child = n.getChild();
 		this.parent=n.parent;
 		this.name = new String(n.name);
 		this.type = n.type;
@@ -41,6 +41,7 @@ public class Node implements Serializable{
 	}
 	public ArrayList<Node> getChild() {
 		return child;
+		
 	}
 	
 	public void setChild(ArrayList<Node> child) {

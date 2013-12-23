@@ -1,3 +1,4 @@
+
 package pkg;
 
 import java.io.Serializable;
@@ -206,6 +207,7 @@ public class Tree implements Serializable{
 	 */
 	public boolean mv(String select , String moveTo){
 		Node selected = getNode(select);
+		System.out.println(selected.getName());
 //		System.out.println(moveTo.substring(0,moveTo.lastIndexOf('/')+1));			//debug
 		Node dirTo = getNode(moveTo.substring(0,moveTo.lastIndexOf('/')+1));
 //		System.out.println("mv:> "+selected.getName()+"\t"+selected.getType());		//debug
@@ -222,6 +224,15 @@ public class Tree implements Serializable{
 		}
 	}
 	public boolean cp(String select , String moveTo){
+		System.out.println(select);
+		Node tmp = getNode(select);
+		System.out.println(tmp.getName());
+		Node n = new Node (getNode(select));
+		System.out.println(n.toString());
+		if (mv (select, moveTo)){
+			c.addChild(n);
+			return true;
+		}
 		return false;
 	}
 	public Node getC() {

@@ -136,12 +136,9 @@ public class Filesystem {
 		return new String("");
 	}
 	//[]
-	public String copy(String[] p_asSource, String[] p_asDestination) {
+	public String copy(String p_asSource, String p_asDestination) {
 		System.out.print("Copying file from ");
-		dumpArray(p_asSource);
-		System.out.print(" to ");
-		dumpArray(p_asDestination);
-		System.out.print("");
+		t.cp(p_asSource, p_asDestination);
 		return new String("");
 	}
 	//[]
@@ -153,12 +150,11 @@ public class Filesystem {
 		System.out.print("");
 		return new String("");
 	}
-	//[]
+	//[x]
 	// rename -> move
 	public String rename(String p_asSource, String p_asDestination) {
 		System.out.println("Renaming file ");
 		t.mv(p_asSource, p_asDestination);
-
 		return new String("");
 	}
 	//[x]

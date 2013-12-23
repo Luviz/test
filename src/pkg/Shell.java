@@ -109,9 +109,7 @@ public class Shell {
 						System.out
 								.println("Usage: copy <source> <destination>");
 					} else {
-						System.out.println(m_Filesystem.copy(
-								split(asCommandArray[1], '/'),
-								split(asCommandArray[2], '/')));
+						System.out.println(m_Filesystem.copy(asCommandArray[1], asCommandArray[2]));
 					}
 					break;
 
