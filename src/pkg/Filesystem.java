@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class Filesystem {
 	private BlockDevice m_BlockDevice;
@@ -107,9 +108,12 @@ public class Filesystem {
 	//[x]
 	public String save(String p_sPath) {
 		System.out.print("Saving blockdevice to file " + p_sPath);
+		ArrayList<Object> toSave = new ArrayList<>();
+		toSave.add(m_BlockDevice);
+		toSave.add(t);
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p_sPath+".dat"));
-			out.writeObject(m_BlockDevice);
+			out.writeObject(toSave);
 			out.flush();
 			out.close();
 		} catch (IOException e) {
@@ -120,13 +124,16 @@ public class Filesystem {
 	//[x]
 	public String read(String p_sPath) {
 		System.out.print("Reading file " + p_sPath + " to blockdevice");
+		ArrayList<Object> toDist= null;
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_sPath));
-			m_BlockDevice=(BlockDevice) in.readObject();
+			toDist=(ArrayList<Object>) in.readObject();
 			in.close();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		m_BlockDevice = (BlockDevice)toDist.get(0);
+		t = (Tree)toDist.get(1);
 		return new String("");
 	}
 	//[x]
@@ -135,20 +142,29 @@ public class Filesystem {
 		System.out.print(t.rm(p_asPath));
 		return new String("");
 	}
-	//[]
+	//[x]
 	public String copy(String p_asSource, String p_asDestination) {
 		System.out.print("Copying file from ");
 		t.cp(p_asSource, p_asDestination);
 		return new String("");
 	}
-	//[]
-	public String append(String[] p_asSource, String[] p_asDestination) {
+	//[x]
+	public String append(String path , byte[] bs) {
 		System.out.print("Appending file ");
-		dumpArray(p_asSource);
-		System.out.print(" to ");
-		dumpArray(p_asDestination);
-		System.out.print("");
-		return new String("");
+		int dataIx = t.getC().getChildNode(path).getDataIx();
+		byte[] cat = m_BlockDevice.readBlock(dataIx);
+		int bsIx =0;
+		ArrayList<Byte> al = new ArrayList<Byte>();
+		
+		for (int ix = 0; ix < 512; ix++) {
+			if (cat[ix] != 0 ) {
+				System.out.print(cat[ix] + " ");
+			}else{
+				cat[ix] = bs[bsIx++];
+			}
+		}
+		m_BlockDevice.writeBlock(dataIx, cat);
+		return new String(cat);
 	}
 	//[x]
 	// rename -> move

@@ -114,13 +114,12 @@ public class Shell {
 					break;
 
 				case 9: // append
-					if (asCommandArray.length != 3) {
+					if (asCommandArray.length != 2) {
 						System.out
 								.println("Usage: append <source> <destination>");
 					} else {
-						System.out.println(m_Filesystem.append(
-								split(asCommandArray[1], '/'),
-								split(asCommandArray[2], '/')));
+						System.out.println("Enter data. Empty line to end.");
+						System.out.println(m_Filesystem.append(asCommandArray[1], readBlock()));
 					}
 					break;
 
