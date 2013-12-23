@@ -78,7 +78,7 @@ public class Filesystem {
 			//System.out.println(b[0]);
 			if (b[0] == 0){		// if the 1:st item is 0 the array is empty!
 				System.out.println(m_BlockDevice.writeBlock(i, p_abContents));
-				///*
+				/*
 				//debug
 				byte []tmp = m_BlockDevice.readBlock(i);
 				//*/
@@ -94,12 +94,10 @@ public class Filesystem {
 			pathTo = p_asPath.substring(0, p_asPath.lastIndexOf('/'));
 			ret = t.create(fName, i);
 		}else{
-			System.out.println(i);
 			ret = t.create(p_asPath, i);  
 		}
-		//System.out.println(ret);
 		if (ret){
-			return "All ok! Created: " + fName;
+			return "All ok! Created: " + pathTo;
 		}else{
 			return "epic Failur!!";
 		}
