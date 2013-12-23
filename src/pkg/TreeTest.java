@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 
 public class TreeTest {
 	public static void main(String []args) {
-		Tree t = new Tree();
+		/*Tree t = new Tree();
 		char []c = "lol".toCharArray();
 		byte []b = {1,2,3,4,5,6,7,8,9,57,49,49};
 		//b += (byte[])c;
@@ -93,6 +93,10 @@ public class TreeTest {
 			System.out.print((char)byt[i]);
 		}
 		System.out.println();
+		System.out.println(t.ls());
+		System.out.println(t.cat("test1"));
+		t.cp("test1", "lolII");
+		
 		System.out.println(".---------------------------------.");
 		Tree newT= (Tree)load(byt);
 		System.out.println("t");
@@ -105,7 +109,7 @@ public class TreeTest {
 		System.out.println("newT");
 		System.out.println(newT.cat("test1"));
 		System.out.println("end");
-		
+		*/
 	}
 	static byte[] save(Object in){
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();

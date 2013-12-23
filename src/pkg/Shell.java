@@ -1,6 +1,7 @@
 package pkg;
 
 import java.io.*;
+import java.lang.ProcessBuilder.Redirect;
 
 public class Shell {
 	private Filesystem m_Filesystem;
@@ -165,8 +166,10 @@ public class Shell {
 				default:
 					System.out.println("Unknown command " + asCommandArray[0]);
 				}
+				readLine();
 			}
-			sCommand = readLine();
+			//@SuppressWarnings("unused")
+			//String tmp = readLine();		//to prevent the doubling of the while loop!;
 		}
 	}
 
@@ -226,12 +229,12 @@ public class Shell {
 	}
 
 	private byte[] readBlock() {
-		byte[] abTempBuffer = new byte[1024];
+		byte[] abTempBuffer = new byte[512];
 		byte bTemp;
 		int nIndex = 0;
 		boolean bEnter = false;
 
-		for (nIndex = 0; nIndex < 1024; nIndex++) {
+		for (nIndex = 0; nIndex < 512; nIndex++) {
 			try {
 				bTemp = (byte) m_Stream.read();
 			} catch (IOException io) {
@@ -266,7 +269,7 @@ public class Shell {
 				bTemp = '\n';
 			}
 
-			if (bTemp == '\n' || bTemp == '\r') {
+			if (bTemp == '\n' || bTemp == '\r' || bTemp == '\0') {
 				break;
 			}
 			abTempBuffer[nIndex] = bTemp;
@@ -276,6 +279,7 @@ public class Shell {
 
 		return sTemp;
 	}
+	
 
 	@SuppressWarnings("unused")
 	private void dumpArray(String[] p_asArray) {

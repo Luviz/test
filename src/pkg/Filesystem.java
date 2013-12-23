@@ -52,26 +52,61 @@ public class Filesystem {
 		//dumpArray(p_asPath);
 		
 		System.out.print(t.ls());
+		for (int i = 0 ; i < 250 ; i += 2){
+			//System.out.println(m_BlockDevice.readBlock(i).toString());		//debug
+			String test = new String(m_BlockDevice.readBlock(i));
+			//
+			if (test.charAt(0) == '/') {
+				System.out.println(test); //debug;
+				if (test.substring(0, test.lastIndexOf('/')+1).equals(t.pwd())) {
+					
+					System.out.println(m_BlockDevice.readBlock(i));
+				}
+			}
+		}
 		return new String("");
 	}
 	//[x]
 	public String create(String p_asPath, byte[] p_abContents) {
-		System.out.print("Creating file ");
-		String test = new String(p_abContents);
-		t.create(p_asPath, p_abContents);
-		System.out.println(test);
-		System.out.print("");
-		return new String("");
+		//System.out.println("start");
+		String fName = null , pathTo = null;
+		int i =0;
+		boolean found = false ,ret = false;
+		//find pos to store data!!!
+		while (!found && i < 250 ){
+			byte [] b = m_BlockDevice.readBlock(i);
+			//System.out.println(b[0]);
+			if (b[0] == 0){		// if the 1:st item is 0 the array is empty!
+				System.out.println(m_BlockDevice.writeBlock(i, p_abContents));
+				///*
+				//debug
+				byte []tmp = m_BlockDevice.readBlock(i);
+				//*/
+				found = true;
+				ret = true;
+			}else{
+				i++;
+			}
+		}
+		//System.out.println(ret);
+		if (p_asPath.contains("/") && found == true) {			//tree creation!
+			fName = p_asPath.substring(p_asPath.lastIndexOf('/')+1);
+			pathTo = p_asPath.substring(0, p_asPath.lastIndexOf('/'));
+			ret = t.create(fName, i);
+		}else{
+			System.out.println(i);
+			ret = t.create(p_asPath, i);  
+		}
+		//System.out.println(ret);
+		if (ret){
+			return "All ok! Created: " + fName;
+		}else{
+			return "epic Failur!!";
+		}
+		//return "";
 	}
+	
 	//[x]
-	public String cat(String p_asPath) {
-		System.out.print("Dumping contents of file ");
-		
-		//dumpArray(p_asPath);
-		System.out.print(t.cat(p_asPath));
-		return new String("");
-	}
-	//[?]
 	public String save(String p_sPath) {
 		System.out.print("Saving blockdevice to file " + p_sPath);
 		try {
@@ -80,12 +115,11 @@ public class Filesystem {
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new String("");
 	}
-	//[?]
+	//[x]
 	public String read(String p_sPath) {
 		System.out.print("Reading file " + p_sPath + " to blockdevice");
 		try {
@@ -93,7 +127,6 @@ public class Filesystem {
 			m_BlockDevice=(BlockDevice) in.readObject();
 			in.close();
 		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new String("");
@@ -122,7 +155,7 @@ public class Filesystem {
 		System.out.print("");
 		return new String("");
 	}
-	//[x]
+	//[]
 	// rename -> move
 	public String rename(String p_asSource, String p_asDestination) {
 		System.out.println("Renaming file ");
@@ -155,11 +188,35 @@ public class Filesystem {
 	public String pwd() {
 		return new String(t.pwd());
 	}
+	//[x]
+	public String cat(String path) {
+		// TODO Auto-generated method stub
+		//System.out.println(t.getC().getChildNode(path).getDataIx());
+		//System.out.println(t.getC().getChildNode(path).getName());
+		int dataIx = t.getC().getChildNode(path).getDataIx();
+		return new String(m_BlockDevice.readBlock(dataIx));
+	}
+
+	public void debug(){
+		int i =0;
+		boolean done = false;
+		while (!done ||i > 250) {
+			byte[] get = m_BlockDevice.readBlock(i);
+			if (get[0] == 0)
+				done = true;
+			else{
+				i+=2;
+				System.out.println(get.toString());
+			}
+			
+		}
+	}
 	
 	private void dumpArray(String[] p_asArray) {
 		for (int nIndex = 0; nIndex < p_asArray.length; nIndex++) {
 			System.out.print(p_asArray[nIndex] + "=>");
 		}
 	}
+
 
 }

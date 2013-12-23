@@ -17,7 +17,6 @@ public class MemoryBlockDevice extends BlockDevice {
 		for (int nIndex = 0; nIndex < 512; nIndex++) {
 			m_abContents[p_nBlockNr][nIndex] = p_abContents[nIndex];
 		}
-//lol
 		return 1;
 
 	}

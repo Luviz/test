@@ -14,15 +14,18 @@ public class Tree implements Serializable{
 	}
 	
 	public boolean mkdir(String name){
+		//System.out.println("mkdir ()");
 		return mkdir(name, ".");
 	}
 	/**
 	 * DISABLE!
+	 * use the WALKER
 	 * @param name
 	 * @param path
 	 */
 	public boolean mkdir(String name, String path){
 		if (c.getChildNode(name) == null){
+			//System.out.println("mkdir (,)");
 			c.addChild(name, 'd');
 			return true;
 		}
@@ -30,17 +33,23 @@ public class Tree implements Serializable{
 		
 	}
 	
-	public boolean create(String name, byte[] data){
+	public boolean create(String name, int dataIx){
 		if (c.getChildNode(name) == null){
-			c.addChild(name, 'f');
-			c.setData(new String (data));
+			c.addChild(name, 'f', dataIx);
+			//System.out.println(dataIx);
+			c.setDataIx(dataIx);
 			return true;
 		}
 		return false;
 	}
-	public String cat(String name) {
-		return c.getData()+"\neof";
-	}
+	/**
+	 * remove me
+	 * @param name
+	 * @return
+	 */
+	/*public String cat(String name) {
+		return c.getDataIx()+"\neof";
+	}*/
 	
 	public boolean rm (String name){
 		if (c.getChildNode(name) != null){
@@ -102,7 +111,7 @@ public class Tree implements Serializable{
 				if (path.length() == 1){
 					return true;
 				}
-				//System.out.println("Tree_cd:> goto /");	//debug
+				//System.out.println("Tree_cd:> goto /");		//debug
 				cd(path.substring(1));
 			}else if (!path.isEmpty()){
 				//System.out.println("tree_cd:>else -> else if");	//debug
@@ -212,7 +221,9 @@ public class Tree implements Serializable{
 			return false;
 		}
 	}
-	
+	public boolean cp(String select , String moveTo){
+		return false;
+	}
 	public Node getC() {
 		return c;
 	}
@@ -236,5 +247,13 @@ public class Tree implements Serializable{
 		}
 		
 		return ret.substring(1);
+	}
+	/**
+	 * check is path is in exstece
+	 * @param path
+	 * @return
+	 */
+	public boolean isDir(String path){
+		return cd_walker(path);
 	}
 }
