@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class MemoryBlockDevice extends BlockDevice implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	byte[][] m_abContents = new byte[250][512];
 	
 	public int writeBlock(int p_nBlockNr, byte[] p_abContents) {
